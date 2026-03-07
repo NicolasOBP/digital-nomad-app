@@ -21,7 +21,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(protected)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
-        <Stack.Screen name="SignIn" />
+        <Stack.Screen name="sign-in" />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
