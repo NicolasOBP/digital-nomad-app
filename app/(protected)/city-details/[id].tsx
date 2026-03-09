@@ -7,7 +7,7 @@ export default function CityDetailsScreen() {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text onPress={router.back} style={{ color: "white" }}>
+      <Text onPress={router.back}>
         Cidades - {id} - {name}
       </Text>
     </View>
