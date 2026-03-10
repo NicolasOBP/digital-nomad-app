@@ -1,6 +1,6 @@
-import { Box } from "@/src/components/Box";
 import { CityCard } from "@/src/components/CityCard";
 import { cityPreviewList } from "@/src/data/cities";
+import { Screen } from "@/src/template/Screen";
 import { CityPreview } from "@/src/types";
 import { FlatList, ListRenderItemInfo } from "react-native";
 
@@ -10,8 +10,8 @@ export default function HomeScreen() {
   }
 
   return (
-    <Box flex={1}>
+    <Screen>
       <FlatList data={cityPreviewList} renderItem={renderItem} />
-    </Box>
+    </Screen>
   );
 }
