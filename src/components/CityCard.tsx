@@ -18,19 +18,28 @@ export function CityCard({ cityPreview }: CityCardProps) {
       imageStyle={{ borderRadius: borderRadii.cityCard }}
     >
       <Box
-        alignSelf="flex-end"
-        padding="s8"
-        margin="padding"
-        borderRadius="cityCard"
-        borderWidth={2}
-        borderColor="gray2"
-      >
-        <Icon name="Favorite-outline" color="text" />
-      </Box>
+        width="100%"
+        height="100%"
+        backgroundColor="midnightBlack"
+        opacity={0.25}
+        position="absolute"
+      />
 
-      <Box padding="s24" flex={1} justifyContent="flex-end">
-        <Text variant="title28">{cityPreview.name}</Text>
-        <Text variant="text16">{cityPreview.country}</Text>
+      <Box flex={1} padding="s24" justifyContent="space-between">
+        <Box
+          alignSelf="flex-end"
+          padding="s8"
+          borderRadius="cityCard"
+          borderWidth={2}
+          borderColor="gray2"
+        >
+          <Icon name="Favorite-outline" color="text" />
+        </Box>
+
+        <Box>
+          <Text variant="title28">{cityPreview.name}</Text>
+          <Text variant="text16">{cityPreview.country}</Text>
+        </Box>
       </Box>
     </ImageBackground>
   );
