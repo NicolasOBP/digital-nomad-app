@@ -76,6 +76,7 @@ const theme = createTheme({
 
   borderRadii: {
     default: 16,
+    cityCard: 32,
   },
 });
 
