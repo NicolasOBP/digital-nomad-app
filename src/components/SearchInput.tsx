@@ -50,4 +50,5 @@ const boxStyle: BoxProps = {
   alignItems: "center",
   borderRadius: "rounded",
   borderWidth: 2,
+  pl: "s16",
 };
