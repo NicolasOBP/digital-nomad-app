@@ -78,6 +78,11 @@ const theme = createTheme({
   borderRadii: {
     default: 16,
     cityCard: 32,
+    rounded: 500,
+  },
+
+  boxShadow: {
+    primary: "3px 3px 10px 3px rgba(255, 75, 75, 0.4)",
   },
 });
 

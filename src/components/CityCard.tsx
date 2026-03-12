@@ -29,7 +29,7 @@ export function CityCard({ cityPreview }: CityCardProps) {
         <Box
           alignSelf="flex-end"
           padding="s8"
-          borderRadius="cityCard"
+          borderRadius="rounded"
           borderWidth={2}
           borderColor="gray2"
         >
