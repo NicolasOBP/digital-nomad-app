@@ -39,4 +39,7 @@ export type City = {
   relatedCitiesIds: string[];
 };
 
-export type CityPreview = Pick<City, "id" | "name" | "country" | "coverImage">;
+export type CityPreview = Pick<
+  City,
+  "id" | "name" | "country" | "coverImage" | "categories"
+>;
