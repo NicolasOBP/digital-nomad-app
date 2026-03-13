@@ -3,6 +3,7 @@ import { CityCard } from "@/src/components/CityCard";
 import { CityFilter } from "@/src/containers/CityFilter";
 import { categories } from "@/src/data/categories";
 import { useCities } from "@/src/data/useCities";
+import { useDebounce } from "@/src/hooks/useDebounce";
 import { Screen } from "@/src/template/Screen";
 import { useAppTheme } from "@/src/theme/useAppTheme";
 import { CityPreview } from "@/src/types";
@@ -16,7 +17,8 @@ export default function HomeScreen() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
     null,
   );
-  const { cityPreviewList } = useCities(cityName, selectedCategoryId);
+  const debouncedCityName = useDebounce(cityName);
+  const { cityPreviewList } = useCities(debouncedCityName, selectedCategoryId);
 
   const { spacing } = useAppTheme();
   const { top } = useSafeAreaInsets();
