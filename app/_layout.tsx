@@ -1,8 +1,10 @@
-import theme from "@/src/theme/theme";
-import { ThemeProvider } from "@shopify/restyle";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+
+import { ThemeProvider } from "@shopify/restyle";
+
+import theme from "@/src/theme/theme";
 import "react-native-reanimated";
 
 export const unstable_settings = {

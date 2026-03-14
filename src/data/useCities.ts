@@ -1,4 +1,5 @@
 import { Category, CityPreview } from "../types";
+
 import { cityPreviewList as cityList } from "./cities";
 
 type CityFilter = {

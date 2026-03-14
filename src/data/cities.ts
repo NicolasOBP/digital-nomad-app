@@ -1,4 +1,5 @@
 import { City, CityPreview } from "../types";
+
 import { categories } from "./categories";
 
 export const cities: City[] = [

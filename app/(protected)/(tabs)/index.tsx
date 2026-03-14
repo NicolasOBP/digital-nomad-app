@@ -1,5 +1,12 @@
+import { useRef, useState } from "react";
+import { FlatList, ListRenderItemInfo } from "react-native";
+
+import { useScrollToTop } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 import { Box } from "@/src/components/Box";
 import { CityCard } from "@/src/components/CityCard";
+
 import { CityFilter } from "@/src/containers/CityFilter";
 import { categories } from "@/src/data/categories";
 import { useCities } from "@/src/data/useCities";
@@ -7,10 +14,6 @@ import { useDebounce } from "@/src/hooks/useDebounce";
 import { Screen } from "@/src/template/Screen";
 import { useAppTheme } from "@/src/theme/useAppTheme";
 import { CityPreview } from "@/src/types";
-import { useScrollToTop } from "@react-navigation/native";
-import { useRef, useState } from "react";
-import { FlatList, ListRenderItemInfo } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const [cityName, setCityName] = useState("");

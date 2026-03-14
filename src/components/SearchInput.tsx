@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { TextInput, TextInputProps } from "react-native";
+
 import { useAppTheme } from "../theme/useAppTheme";
+
 import { Box, BoxProps } from "./Box";
 import { IconButton } from "./IconButton";
 
