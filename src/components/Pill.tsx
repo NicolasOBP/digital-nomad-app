@@ -10,6 +10,12 @@ export type PillProps = {
   active: boolean;
 } & Pick<PressableProps, "onPress">;
 
+/**
+ * The height of the pill is the sum of the icon size, the padding vertical and the border width.
+ * It's used to calculate the margin top of the scroll view in the CityDetailsHeader component.
+ */
+export const PILL_HEIGHT = 16 + 16 + 4;
+
 export function Pill({ active, iconName, label, onPress }: PillProps) {
   return (
     <Pressable onPress={onPress}>
