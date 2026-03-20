@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 
 import Animated, {
   Easing,
+  interpolate,
   SharedValue,
   useAnimatedStyle,
   useSharedValue,
@@ -21,28 +22,47 @@ type AccordionProps = {
 
 export function Accordion({ description, title }: AccordionProps) {
   const isOpen = useSharedValue(false);
+  const progress = useSharedValue(0); // 0 => 1
 
   function handleOpenPress() {
     isOpen.value = !isOpen.value;
+    progress.value = withTiming(isOpen.value ? 0 : 1, { duration: 1000 });
   }
 
   return (
     <Pressable onPress={handleOpenPress}>
       <View>
-        <AccordionHeader title={title} />
+        <AccordionHeader title={title} progress={progress} />
         <AccordionBody description={description} isOpen={isOpen} />
       </View>
     </Pressable>
   );
 }
 
-function AccordionHeader({ title }: { title: string }) {
+function AccordionHeader({
+  title,
+  progress,
+}: {
+  title: string;
+  progress: SharedValue<number>;
+}) {
+  // progress = 0 => 1
+  // icon = 0 => -180
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { rotate: interpolate(progress.value, [0, 1], [0, -180]) + "deg" },
+    ],
+  }));
+
   return (
     <View style={styles.header}>
       <Box flexShrink={1}>
         <Text variant="title16">{title}</Text>
       </Box>
-      <Icon name="Chevron-down" color="gray2" />
+      <Animated.View style={animatedStyle}>
+        <Icon name="Chevron-down" color="gray2" />
+      </Animated.View>
     </View>
   );
 }
