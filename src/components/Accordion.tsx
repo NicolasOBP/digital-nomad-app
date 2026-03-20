@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
   interpolate,
+  interpolateColor,
   SharedValue,
   useAnimatedStyle,
   useSharedValue,
@@ -10,9 +11,9 @@ import Animated, {
 } from "react-native-reanimated";
 
 import theme from "../theme/theme";
+import { useAppTheme } from "../theme/useAppTheme";
 
 import { Box } from "./Box";
-import { Icon } from "./Icon";
 import { Text } from "./Text";
 
 type AccordionProps = {
@@ -26,7 +27,7 @@ export function Accordion({ description, title }: AccordionProps) {
 
   function handleOpenPress() {
     isOpen.value = !isOpen.value;
-    progress.value = withTiming(isOpen.value ? 0 : 1, { duration: 1000 });
+    progress.value = withTiming(isOpen.value ? 0 : 1, { duration: 1200 });
   }
 
   return (
@@ -48,11 +49,17 @@ function AccordionHeader({
 }) {
   // progress = 0 => 1
   // icon = 0 => -180
+  const { colors } = useAppTheme();
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
       { rotate: interpolate(progress.value, [0, 1], [0, -180]) + "deg" },
     ],
+    tintColor: interpolateColor(
+      progress.value,
+      [0, 1],
+      [colors.gray2, colors.primary],
+    ),
   }));
 
   return (
@@ -60,9 +67,11 @@ function AccordionHeader({
       <Box flexShrink={1}>
         <Text variant="title16">{title}</Text>
       </Box>
-      <Animated.View style={animatedStyle}>
-        <Icon name="Chevron-down" color="gray2" />
-      </Animated.View>
+
+      <Animated.Image
+        style={[animatedStyle, { width: 24, height: 24 }]}
+        source={require("@/assets/images/chevron-down.png")}
+      />
     </View>
   );
 }
