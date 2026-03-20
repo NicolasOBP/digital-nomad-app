@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, View } from "react-native";
 
 import Animated, {
+  Easing,
   interpolate,
   interpolateColor,
   SharedValue,
@@ -23,11 +24,16 @@ type AccordionProps = {
 export function Accordion({ description, title }: AccordionProps) {
   const isOpen = useSharedValue(false);
   const progress = useSharedValue(0); // 0 => 1
+  const bodyProgress = useSharedValue(0); // 0 => 1
 
   function handleOpenPress() {
     isOpen.value = !isOpen.value;
     progress.value = withTiming(isOpen.value ? 0 : 1, {
-      duration: 1000,
+      duration: 800,
+    });
+    bodyProgress.value = withTiming(isOpen.value ? 0 : 1, {
+      duration: 700,
+      easing: isOpen.value ? Easing.exp : Easing.elastic(1.5),
     });
   }
 
@@ -37,8 +43,8 @@ export function Accordion({ description, title }: AccordionProps) {
         <AccordionHeader title={title} progress={progress} />
         <AccordionBody
           description={description}
-          isOpen={isOpen}
           progress={progress}
+          bodyProgress={bodyProgress}
         />
       </View>
     </Pressable>
@@ -102,10 +108,11 @@ function AccordionHeader({
 function AccordionBody({
   description,
   progress,
+  bodyProgress,
 }: {
   description: string;
-  isOpen: SharedValue<boolean>;
   progress: SharedValue<number>;
+  bodyProgress: SharedValue<number>;
 }) {
   const { borderRadii } = useAppTheme();
   const height = useSharedValue(0);
@@ -113,7 +120,7 @@ function AccordionBody({
   const animatedStyle = useAnimatedStyle(() => {
     return {
       opacity: interpolate(progress.value, [0, 1], [0, 1]),
-      height: interpolate(progress.value, [0, 1], [0, height.value]),
+      height: interpolate(bodyProgress.value, [0, 1], [0, height.value]),
       borderTopLeftRadius: interpolate(
         progress.value,
         [0, 1],
