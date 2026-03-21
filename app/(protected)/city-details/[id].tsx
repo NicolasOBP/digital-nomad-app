@@ -73,7 +73,7 @@ export default function CityDetailsScreen() {
         <MapView
           style={{
             width: "100%",
-            height: 700,
+            height: 400,
           }}
           initialRegion={{
             latitude: city.location.latitude,
