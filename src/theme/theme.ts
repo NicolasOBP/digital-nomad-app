@@ -79,6 +79,7 @@ const theme = createTheme({
   borderRadii: {
     default: 16,
     cityCard: 32,
+    bottomSheetMap: 40,
     rounded: 500,
   },
 

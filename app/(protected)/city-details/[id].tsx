@@ -1,13 +1,12 @@
 import { useLocalSearchParams } from "expo-router";
 import { Pressable } from "react-native";
 
-import MapView from "react-native-maps";
 import { useSharedValue } from "react-native-reanimated";
 
-import { BottomSheet } from "@/src/components/BottomSheet";
 import { Divider } from "@/src/components/Divider";
 import { Text } from "@/src/components/Text";
 
+import { BottomSheetMap } from "@/src/containers/BottomSheetMap";
 import { CityDetailsHeader } from "@/src/containers/CityDetailsHeader";
 import { CityDetailsInfo } from "@/src/containers/CityDetailsInfo";
 import { CityDetailsMap } from "@/src/containers/CityDetailsMap";
@@ -69,20 +68,11 @@ export default function CityDetailsScreen() {
         <CityDetailsRelatedCities />
       </Screen>
 
-      <BottomSheet onPress={toggleBottomSheet} isOpen={bottomSheetIsOpen}>
-        <MapView
-          style={{
-            width: "100%",
-            height: 400,
-          }}
-          initialRegion={{
-            latitude: city.location.latitude,
-            longitude: city.location.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        />
-      </BottomSheet>
+      <BottomSheetMap
+        isOpen={bottomSheetIsOpen}
+        location={city.location}
+        onPress={toggleBottomSheet}
+      />
     </>
   );
 }
