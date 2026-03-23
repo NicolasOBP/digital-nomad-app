@@ -6,6 +6,7 @@ import { ThemeProvider } from "@shopify/restyle";
 
 import theme from "@/src/theme/theme";
 import "react-native-reanimated";
+import "../ReactotronConfig";
 
 export const unstable_settings = {
   anchor: "(tabs)",
