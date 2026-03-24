@@ -10,7 +10,7 @@ import { Icon } from "./Icon";
 import { Text } from "./Text";
 
 type CityCardProps = {
-  cityPreview: CityPreview;
+  cityPreview: CityPreview & { coverImage: string };
   style?: ImageBackgroundProps["style"];
 };
 
@@ -19,7 +19,7 @@ export function CityCard({ cityPreview, style }: CityCardProps) {
   return (
     <Link push href={`/city-details/${cityPreview.id}`}>
       <ImageBackground
-        source={cityPreview.coverImage}
+        source={{ uri: cityPreview.coverImage }}
         style={[{ width: "100%", height: 280 }, style]}
         imageStyle={{ borderRadius: borderRadii.cityCard }}
       >

@@ -28,7 +28,7 @@ export type City = {
   id: string;
   name: string;
   country: string;
-  coverImage: number;
+  coverImage: string;
   description: string;
   touristAttractions: TouristAttraction[];
   location: {
@@ -39,7 +39,4 @@ export type City = {
   relatedCitiesIds: string[];
 };
 
-export type CityPreview = Pick<
-  City,
-  "id" | "name" | "country" | "coverImage" | "categories"
->;
+export type CityPreview = Pick<City, "id" | "name" | "country" | "coverImage">;

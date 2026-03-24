@@ -22,7 +22,7 @@ export default function HomeScreen() {
     null,
   );
   const debouncedCityName = useDebounce(cityName);
-  const { cityPreviewList } = useCities({
+  const { error, isLoading, cities } = useCities({
     name: debouncedCityName,
     categoryId: selectedCategoryId,
   });
@@ -51,7 +51,7 @@ export default function HomeScreen() {
           paddingTop: top,
           paddingBottom: spacing.padding,
         }}
-        data={cityPreviewList}
+        data={cities}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id}
