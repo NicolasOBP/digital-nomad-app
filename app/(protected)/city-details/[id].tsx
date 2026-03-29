@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
-import { Pressable } from "react-native";
+import { ActivityIndicator, Pressable } from "react-native";
 
 import { useSharedValue } from "react-native-reanimated";
 
@@ -17,7 +17,7 @@ import { Screen } from "@/src/template/Screen";
 
 export default function CityDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { city } = useCityDetails(id);
+  const { city, error, isLoading } = useCityDetails(id);
 
   const bottomSheetIsOpen = useSharedValue(false);
 
@@ -25,7 +25,7 @@ export default function CityDetailsScreen() {
     bottomSheetIsOpen.value = !bottomSheetIsOpen.value;
   }
 
-  if (!city) {
+  if (error) {
     return (
       <Screen
         padding="padding"
@@ -36,6 +36,10 @@ export default function CityDetailsScreen() {
         <Text>City not found</Text>
       </Screen>
     );
+  }
+
+  if (isLoading || !city) {
+    return <ActivityIndicator size={50} />;
   }
 
   return (
@@ -67,7 +71,7 @@ export default function CityDetailsScreen() {
 
         <Divider paddingHorizontal="padding" />
 
-        <CityDetailsRelatedCities relatedCitiesIds={city.relatedCitiesIds} />
+        <CityDetailsRelatedCities id={city.id} />
       </Screen>
 
       <BottomSheetMap

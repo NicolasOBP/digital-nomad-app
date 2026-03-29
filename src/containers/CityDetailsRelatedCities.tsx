@@ -9,10 +9,10 @@ import { useRelatedCities } from "../data/useRelatedCities";
 import { useAppTheme } from "../theme/useAppTheme";
 import { City } from "../types";
 
-type Props = Pick<City, "relatedCitiesIds">;
+type Props = Pick<City, "id">;
 
-export function CityDetailsRelatedCities({ relatedCitiesIds }: Props) {
-  const relatedCities = useRelatedCities(relatedCitiesIds);
+export function CityDetailsRelatedCities({ id }: Props) {
+  const relatedCities = useRelatedCities(id);
   const { spacing } = useAppTheme();
   const { bottom } = useSafeAreaInsets();
   const { width } = useWindowDimensions();

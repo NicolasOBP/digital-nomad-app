@@ -1,8 +1,7 @@
-import { Category, CityPreview } from "../types";
+import { Category, City, CityPreview } from "../types";
 
 import { supabase } from "./supabase";
-
-const STORAGE_URL = process.env.EXPO_PUBLIC_SUPABASE_STORAGE_URL;
+import { STORAGE_URL, supabaseAdapter } from "./supabaseAdapter";
 
 export type CityFilter = {
   categoryId?: Category["id"] | null;
@@ -56,12 +55,21 @@ async function listCategories(): Promise<Category[]> {
     throw new Error("Failed to fetch categories");
   }
 
-  return data.map((row) => ({
-    code: row.code as Category["code"],
-    id: row.id,
-    name: row.name,
-    description: row.description,
-  }));
+  return supabaseAdapter.toCategory(data);
 }
 
-export const supabaseService = { findAll, listCategories };
+async function findById(id: CityPreview["id"]): Promise<City> {
+  const { data, error } = await supabase
+    .from("cities_with_full_info")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error("City not found");
+  }
+
+  return supabaseAdapter.toCity(data);
+}
+
+export const supabaseService = { findAll, listCategories, findById };

@@ -1,11 +1,10 @@
 import { CityPreview } from "../types";
 
-import { cities } from "./cities";
+export function useRelatedCities(cityId: string): CityPreview[] {
+  // const relatedCities = cities.filter((city) =>
+  //   relatedCitiesIds.includes(city.id),
+  // );
 
-export function useRelatedCities(relatedCitiesIds: string[]): CityPreview[] {
-  const relatedCities = cities.filter((city) =>
-    relatedCitiesIds.includes(city.id),
-  );
-
-  return relatedCities;
+  // return relatedCities;
+  return [];
 }

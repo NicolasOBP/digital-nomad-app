@@ -129,6 +129,20 @@ export type Database = {
             referencedRelation: "cities_with_categories"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "city_categories_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "cities_with_full_info"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "city_categories_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "related_cities"
+            referencedColumns: ["id"]
+          },
         ]
       }
       city_cities: {
@@ -160,6 +174,20 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "city_cities_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "cities_with_full_info"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "city_cities_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "related_cities"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "city_cities_related_city_id_fkey"
             columns: ["related_city_id"]
             isOneToOne: false
@@ -171,6 +199,20 @@ export type Database = {
             columns: ["related_city_id"]
             isOneToOne: false
             referencedRelation: "cities_with_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "city_cities_related_city_id_fkey"
+            columns: ["related_city_id"]
+            isOneToOne: false
+            referencedRelation: "cities_with_full_info"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "city_cities_related_city_id_fkey"
+            columns: ["related_city_id"]
+            isOneToOne: false
+            referencedRelation: "related_cities"
             referencedColumns: ["id"]
           },
         ]
@@ -233,6 +275,20 @@ export type Database = {
             referencedRelation: "cities_with_categories"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "tourist_attractions_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "cities_with_full_info"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tourist_attractions_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "related_cities"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
@@ -249,6 +305,42 @@ export type Database = {
           id: string | null
           location: unknown
           name: string | null
+        }
+        Relationships: []
+      }
+      cities_with_full_info: {
+        Row: {
+          categories: Json | null
+          country: string | null
+          cover_image: string | null
+          description: string | null
+          id: string | null
+          latitude: number | null
+          longitude: number | null
+          name: string | null
+          tourist_attractions: Json | null
+        }
+        Insert: {
+          categories?: never
+          country?: string | null
+          cover_image?: string | null
+          description?: string | null
+          id?: string | null
+          latitude?: never
+          longitude?: never
+          name?: string | null
+          tourist_attractions?: never
+        }
+        Update: {
+          categories?: never
+          country?: string | null
+          cover_image?: string | null
+          description?: string | null
+          id?: string | null
+          latitude?: never
+          longitude?: never
+          name?: string | null
+          tourist_attractions?: never
         }
         Relationships: []
       }
@@ -293,6 +385,45 @@ export type Database = {
           type?: string | null
         }
         Relationships: []
+      }
+      related_cities: {
+        Row: {
+          country: string | null
+          cover_image: string | null
+          id: string | null
+          name: string | null
+          source_city_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "city_cities_city_id_fkey"
+            columns: ["source_city_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "city_cities_city_id_fkey"
+            columns: ["source_city_id"]
+            isOneToOne: false
+            referencedRelation: "cities_with_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "city_cities_city_id_fkey"
+            columns: ["source_city_id"]
+            isOneToOne: false
+            referencedRelation: "cities_with_full_info"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "city_cities_city_id_fkey"
+            columns: ["source_city_id"]
+            isOneToOne: false
+            referencedRelation: "related_cities"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Functions: {
