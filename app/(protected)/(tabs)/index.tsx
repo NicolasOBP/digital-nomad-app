@@ -9,7 +9,7 @@ import { Box } from "@/src/components/Box";
 import { CityCard } from "@/src/components/CityCard";
 
 import { CityFilter } from "@/src/containers/CityFilter";
-import { categories } from "@/src/data/categories";
+import { useCategories } from "@/src/data/useCategories";
 import { useCities } from "@/src/data/useCities";
 import { useDebounce } from "@/src/hooks/useDebounce";
 import { Screen } from "@/src/template/Screen";
@@ -22,10 +22,11 @@ export default function HomeScreen() {
     null,
   );
   const debouncedCityName = useDebounce(cityName);
-  const { error, isLoading, cities } = useCities({
+  const { cities } = useCities({
     name: debouncedCityName,
     categoryId: selectedCategoryId,
   });
+  const { categories } = useCategories();
 
   const { spacing } = useAppTheme();
   const { top } = useSafeAreaInsets();
