@@ -1,12 +1,20 @@
-import { CityPreview } from "../types";
+import { Category, CityPreview } from "../types";
 
 import { supabase } from "./supabase";
 
 const STORAGE_URL = process.env.EXPO_PUBLIC_SUPABASE_STORAGE_URL;
 
-async function findAll(): Promise<CityPreview[]> {
+export type CityFilter = {
+  categoryId?: Category["id"] | null;
+  name?: Category["name"];
+};
+
+async function findAll(filters: CityFilter): Promise<CityPreview[]> {
   try {
-    const { data } = await supabase.from("cities").select("*");
+    const { data } = await supabase
+      .from("cities")
+      .select("*")
+      .ilike("name", `%${filters.name}%`);
 
     if (!data) {
       throw new Error("data is not available");
@@ -22,4 +30,5 @@ async function findAll(): Promise<CityPreview[]> {
     throw error;
   }
 }
+
 export const supabaseService = { findAll };
