@@ -17,7 +17,7 @@ import { Screen } from "@/src/template/Screen";
 
 export default function CityDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { city, error, isLoading } = useCityDetails(id);
+  const { data: city, error, isLoading } = useCityDetails(id);
 
   const bottomSheetIsOpen = useSharedValue(false);
 
