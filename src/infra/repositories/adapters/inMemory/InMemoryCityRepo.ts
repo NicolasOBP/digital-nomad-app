@@ -3,15 +3,44 @@ import { City, CityPreview } from "@/src/domain/city/City";
 import { CityFindAllFilter, ICityRepo } from "@/src/domain/city/ICityRepo";
 
 export class InMemoryCityRepo implements ICityRepo {
-  findById(id: CityPreview["id"]): Promise<City> {
-    throw new Error("Method not implemented.");
+  async findById(id: CityPreview["id"]): Promise<City> {
+    const city = cities.find((city) => {
+      return city.id === id;
+    });
+
+    if (city) {
+      return city;
+    }
+
+    throw new Error("City not found.");
   }
 
-  getRelatedCities(cityId: CityPreview["id"]): Promise<CityPreview[]> {
-    throw new Error("Method not implemented.");
+  async getRelatedCities(cityId: CityPreview["id"]): Promise<CityPreview[]> {
+    const city = cities.find((city) => {
+      return city.id === cityId;
+    });
+
+    return cities.filter((c) => city?.relatedCitiesIds.includes(c.id));
   }
 
-  async findAll(filters: CityFindAllFilter): Promise<CityPreview[]> {
-    return cities;
+  async findAll({
+    categoryId,
+    name,
+  }: CityFindAllFilter): Promise<CityPreview[]> {
+    let cityPreviewList = [...cities];
+
+    if (name) {
+      cityPreviewList = cityPreviewList.filter((city) => {
+        return city.name.toLowerCase().includes(name.toLowerCase());
+      });
+    }
+
+    if (categoryId) {
+      cityPreviewList = cityPreviewList.filter((city) => {
+        return city.categories.some((category) => category.id === categoryId);
+      });
+    }
+
+    return cityPreviewList;
   }
 }

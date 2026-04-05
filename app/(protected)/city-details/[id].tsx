@@ -12,12 +12,12 @@ import { CityDetailsInfo } from "@/src/containers/CityDetailsInfo";
 import { CityDetailsMap } from "@/src/containers/CityDetailsMap";
 import { CityDetailsRelatedCities } from "@/src/containers/CityDetailsRelatedCities";
 import { CityDetailsTouristAttraction } from "@/src/containers/CityDetailsTouristAttraction";
-import { useCityDetails } from "@/src/data/useCityDetails";
+import { useCityFindById } from "@/src/domain/city/useCases/useCityFindById";
 import { Screen } from "@/src/template/Screen";
 
 export default function CityDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { data: city, error, isLoading } = useCityDetails(id);
+  const { data: city, error, isLoading } = useCityFindById(id);
 
   const bottomSheetIsOpen = useSharedValue(false);
 
