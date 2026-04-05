@@ -9,7 +9,7 @@ import { CategoryPill } from "../components/CategoryPill";
 import { Icon } from "../components/Icon";
 import { IconButton } from "../components/IconButton";
 import { PILL_HEIGHT } from "../components/Pill";
-import { City } from "../types";
+import { City } from "../domain/city/City";
 
 type CityDetailsHeaderProps = Pick<City, "id" | "categories" | "coverImage">;
 
@@ -23,7 +23,9 @@ export function CityDetailsHeader({
   return (
     <Box>
       <ImageBackground
-        source={{ uri: coverImage }}
+        source={
+          typeof coverImage === "number" ? coverImage : { uri: coverImage }
+        }
         style={{ width: "100%", height: 250 }}
         imageStyle={{ borderBottomRightRadius: 50 }}
       >

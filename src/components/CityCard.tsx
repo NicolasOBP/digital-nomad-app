@@ -1,8 +1,8 @@
 import { Link } from "expo-router";
 import { ImageBackground, ImageBackgroundProps } from "react-native";
 
+import { CityPreview } from "../domain/city/City";
 import { useAppTheme } from "../theme/useAppTheme";
-import { CityPreview } from "../types";
 
 import { BlackOpacity } from "./BlackOpacity";
 import { Box } from "./Box";
@@ -10,7 +10,7 @@ import { Icon } from "./Icon";
 import { Text } from "./Text";
 
 type CityCardProps = {
-  cityPreview: CityPreview & { coverImage: string };
+  cityPreview: CityPreview;
   style?: ImageBackgroundProps["style"];
 };
 
@@ -19,7 +19,11 @@ export function CityCard({ cityPreview, style }: CityCardProps) {
   return (
     <Link push href={`/city-details/${cityPreview.id}`}>
       <ImageBackground
-        source={{ uri: cityPreview.coverImage }}
+        source={
+          typeof cityPreview.coverImage === "number"
+            ? cityPreview.coverImage
+            : { uri: cityPreview.coverImage }
+        }
         style={[{ width: "100%", height: 280 }, style]}
         imageStyle={{ borderRadius: borderRadii.cityCard }}
       >

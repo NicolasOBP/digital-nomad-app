@@ -13,7 +13,6 @@ import { useCategories } from "@/src/data/useCategories";
 import { CityPreview } from "@/src/domain/city/City";
 import { useCityFindAll } from "@/src/domain/city/useCases/useCityFindAll";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import { supaBaseCityRepo } from "@/src/supabase/supabaseService";
 import { Screen } from "@/src/template/Screen";
 import { useAppTheme } from "@/src/theme/useAppTheme";
 
@@ -23,13 +22,10 @@ export default function HomeScreen() {
     null,
   );
   const debouncedCityName = useDebounce(cityName);
-  const { data: cities } = useCityFindAll(
-    {
-      name: debouncedCityName,
-      categoryId: selectedCategoryId,
-    },
-    supaBaseCityRepo,
-  );
+  const { data: cities } = useCityFindAll({
+    name: debouncedCityName,
+    categoryId: selectedCategoryId,
+  });
   const { data: categories } = useCategories();
 
   const { spacing } = useAppTheme();

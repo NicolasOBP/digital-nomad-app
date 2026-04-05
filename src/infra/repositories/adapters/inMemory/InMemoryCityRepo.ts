@@ -1,3 +1,4 @@
+import { cities } from "@/src/data/cities";
 import { City, CityPreview } from "@/src/domain/city/City";
 import { CityFindAllFilter, ICityRepo } from "@/src/domain/city/ICityRepo";
 
@@ -11,6 +12,6 @@ export class InMemoryCityRepo implements ICityRepo {
   }
 
   async findAll(filters: CityFindAllFilter): Promise<CityPreview[]> {
-    return [];
+    return cities;
   }
 }
