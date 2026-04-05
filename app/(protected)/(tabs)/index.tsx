@@ -8,12 +8,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCategoryFindAll } from "@/src/domain/category/useCases/useCategoryFindAll";
 import { CityPreview } from "@/src/domain/city/City";
 import { useCityFindAll } from "@/src/domain/city/useCases/useCityFindAll";
-import { useDebounce } from "@/src/hooks/useDebounce";
 import { Box } from "@/src/ui/components/Box";
 import { CityCard } from "@/src/ui/components/CityCard";
 import { CityFilter } from "@/src/ui/containers/CityFilter";
 import { Screen } from "@/src/ui/template/Screen";
 import { useAppTheme } from "@/src/ui/theme/useAppTheme";
+import { useDebounce } from "@/src/utils/hooks/useDebounce";
 
 export default function HomeScreen() {
   const [cityName, setCityName] = useState("");
