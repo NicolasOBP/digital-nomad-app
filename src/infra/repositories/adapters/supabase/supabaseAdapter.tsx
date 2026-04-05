@@ -1,4 +1,5 @@
-import { Category, City, CityPreview, TouristAttraction } from "../types";
+import { Category } from "@/src/domain/category/Category";
+import { City, CityPreview, TouristAttraction } from "@/src/domain/city/City";
 
 import { Database } from "./types";
 

@@ -5,16 +5,15 @@ import { useScrollToTop } from "@react-navigation/native";
 import Animated, { FadingTransition } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Box } from "@/src/components/Box";
-import { CityCard } from "@/src/components/CityCard";
-
-import { CityFilter } from "@/src/containers/CityFilter";
 import { useCategoryFindAll } from "@/src/domain/category/useCases/useCategoryFindAll";
 import { CityPreview } from "@/src/domain/city/City";
 import { useCityFindAll } from "@/src/domain/city/useCases/useCityFindAll";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import { Screen } from "@/src/template/Screen";
-import { useAppTheme } from "@/src/theme/useAppTheme";
+import { Box } from "@/src/ui/components/Box";
+import { CityCard } from "@/src/ui/components/CityCard";
+import { CityFilter } from "@/src/ui/containers/CityFilter";
+import { Screen } from "@/src/ui/template/Screen";
+import { useAppTheme } from "@/src/ui/theme/useAppTheme";
 
 export default function HomeScreen() {
   const [cityName, setCityName] = useState("");

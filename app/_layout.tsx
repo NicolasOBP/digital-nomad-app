@@ -4,9 +4,9 @@ import { StatusBar } from "expo-status-bar";
 
 import { ThemeProvider } from "@shopify/restyle";
 
-import { InMemoryRepositories } from "@/src/infra/repositories/adapters/inMemory";
+import { SupabaseRepositories } from "@/src/infra/repositories/adapters/supabase";
 import { RepositoryProvider } from "@/src/infra/repositories/RepositoryProvider";
-import theme from "@/src/theme/theme";
+import theme from "@/src/ui/theme/theme";
 import "react-native-reanimated";
 
 //NETWORK INSPECTOR
@@ -44,7 +44,7 @@ export default function RootLayout() {
   }
 
   return (
-    <RepositoryProvider value={InMemoryRepositories}>
+    <RepositoryProvider value={SupabaseRepositories}>
       <ThemeProvider theme={theme}>
         <Stack
           screenOptions={{

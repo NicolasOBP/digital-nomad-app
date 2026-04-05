@@ -3,13 +3,13 @@ import { ImageBackground, ScrollView } from "react-native";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { City } from "../../domain/city/City";
 import { BlackOpacity } from "../components/BlackOpacity";
 import { Box } from "../components/Box";
 import { CategoryPill } from "../components/CategoryPill";
 import { Icon } from "../components/Icon";
 import { IconButton } from "../components/IconButton";
 import { PILL_HEIGHT } from "../components/Pill";
-import { City } from "../domain/city/City";
 
 type CityDetailsHeaderProps = Pick<City, "id" | "categories" | "coverImage">;
 

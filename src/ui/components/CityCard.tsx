@@ -1,7 +1,8 @@
 import { Link } from "expo-router";
 import { ImageBackground, ImageBackgroundProps } from "react-native";
 
-import { CityPreview } from "../domain/city/City";
+import { CityPreview } from "@/src/domain/city/City";
+
 import { useAppTheme } from "../theme/useAppTheme";
 
 import { BlackOpacity } from "./BlackOpacity";
