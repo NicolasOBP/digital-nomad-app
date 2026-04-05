@@ -1,6 +1,6 @@
-import { Category } from "../domain/category/Category";
-import { City, CityPreview } from "../domain/city/City";
-import { ICityRepo } from "../domain/city/ICityRepo";
+import { Category } from "@/src/domain/category/Category";
+import { City, CityPreview } from "@/src/domain/city/City";
+import { ICityRepo } from "@/src/domain/city/ICityRepo";
 
 import { supabase } from "./supabase";
 import { supabaseAdapter } from "./supabaseAdapter";
@@ -42,16 +42,6 @@ async function findAll(filters: CityFilter): Promise<CityPreview[]> {
   }
 }
 
-async function listCategories(): Promise<Category[]> {
-  const { data, error } = await supabase.from("categories").select("*");
-
-  if (error) {
-    throw new Error("Failed to fetch categories");
-  }
-
-  return supabaseAdapter.toCategory(data);
-}
-
 async function findById(id: CityPreview["id"]): Promise<City> {
   const { data, error } = await supabase
     .from("cities_with_full_info")
@@ -78,7 +68,7 @@ async function getRelatedCities(
   return supabaseAdapter.toCityPreview(data);
 }
 
-export const supaBaseCityRepo: ICityRepo = {
+export const SupabaseCityRepo: ICityRepo = {
   findAll,
   findById,
   getRelatedCities,
