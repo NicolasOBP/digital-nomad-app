@@ -1,4 +1,6 @@
-import { Category, City, CityPreview } from "../types";
+import { Category } from "../domain/category/Category";
+import { City, CityPreview } from "../domain/city/City";
+import { ICityRepo } from "../domain/city/ICityRepo";
 
 import { supabase } from "./supabase";
 import { supabaseAdapter } from "./supabaseAdapter";
@@ -76,9 +78,8 @@ async function getRelatedCities(
   return supabaseAdapter.toCityPreview(data);
 }
 
-export const supabaseService = {
+export const supaBaseCityRepo: ICityRepo = {
   findAll,
-  listCategories,
   findById,
   getRelatedCities,
 };
