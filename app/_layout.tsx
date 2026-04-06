@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 
 import { ThemeProvider } from "@shopify/restyle";
 
-import { SupabaseRepositories } from "@/src/infra/repositories/adapters/supabase";
+import { InMemoryRepositories } from "@/src/infra/repositories/adapters/inMemory";
 import { RepositoryProvider } from "@/src/infra/repositories/RepositoryProvider";
 import theme from "@/src/ui/theme/theme";
 import "react-native-reanimated";
@@ -44,7 +44,7 @@ export default function RootLayout() {
   }
 
   return (
-    <RepositoryProvider value={SupabaseRepositories}>
+    <RepositoryProvider value={InMemoryRepositories}>
       <ThemeProvider theme={theme}>
         <Stack
           screenOptions={{
