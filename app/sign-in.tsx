@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Button } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useAuthSignIn } from "@/src/domain/auth/useCases/useAuthSignIn";
+import { Button } from "@/src/ui/components/Button";
 import { TextInput } from "@/src/ui/components/TextInput";
 import { Screen } from "@/src/ui/template/Screen";
 
@@ -36,7 +36,7 @@ export default function SignInScreen() {
           errorMessage=""
         />
 
-        <Button title="Entrar" onPress={handleSignIn} />
+        <Button title="Entrar" onPress={handleSignIn} mt="s20" />
       </SafeAreaView>
     </Screen>
   );
