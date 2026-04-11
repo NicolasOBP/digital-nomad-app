@@ -9,6 +9,8 @@ import { AlertFeedback } from "@/src/infra/feedbackService/adapters/Alert/AlertF
 import { FeedbackProvider } from "@/src/infra/feedbackService/FeedbackProvider";
 import { InMemoryRepositories } from "@/src/infra/repositories/adapters/inMemory";
 import { RepositoryProvider } from "@/src/infra/repositories/RepositoryProvider";
+import { AsyncStorageImpl } from "@/src/infra/storage/adapters/AsyncStorageImpl";
+import { StorageProvider } from "@/src/infra/storage/StorageContex";
 import theme from "@/src/ui/theme/theme";
 import "react-native-reanimated";
 
@@ -47,28 +49,30 @@ export default function RootLayout() {
   }
 
   return (
-    <AuthProvider>
-      <FeedbackProvider value={AlertFeedback}>
-        <RepositoryProvider value={InMemoryRepositories}>
-          <ThemeProvider theme={theme}>
-            <Stack
-              screenOptions={{
-                contentStyle: { backgroundColor: theme.colors.background },
-                headerShown: false,
-                fullScreenGestureEnabled: true,
-              }}
-            >
-              <Stack.Screen
-                name="(protected)"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen name="+not-found" />
-              <Stack.Screen name="sign-in" />
-            </Stack>
-            <StatusBar style="light" />
-          </ThemeProvider>
-        </RepositoryProvider>
-      </FeedbackProvider>
-    </AuthProvider>
+    <StorageProvider storage={AsyncStorageImpl}>
+      <AuthProvider>
+        <FeedbackProvider value={AlertFeedback}>
+          <RepositoryProvider value={InMemoryRepositories}>
+            <ThemeProvider theme={theme}>
+              <Stack
+                screenOptions={{
+                  contentStyle: { backgroundColor: theme.colors.background },
+                  headerShown: false,
+                  fullScreenGestureEnabled: true,
+                }}
+              >
+                <Stack.Screen
+                  name="(protected)"
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen name="+not-found" />
+                <Stack.Screen name="sign-in" />
+              </Stack>
+              <StatusBar style="light" />
+            </ThemeProvider>
+          </RepositoryProvider>
+        </FeedbackProvider>
+      </AuthProvider>
+    </StorageProvider>
   );
 }
