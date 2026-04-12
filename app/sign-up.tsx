@@ -6,7 +6,9 @@ import { SignUpForm } from "@/src/ui/containers/SignUpForm/SignUpForm";
 import { Screen } from "@/src/ui/template/Screen";
 
 export default function SignUpScreen() {
-  function handleSignUp() {}
+  function handleSignUp(data: any) {
+    console.log({ data });
+  }
   return (
     <Screen>
       <SafeAreaView>
