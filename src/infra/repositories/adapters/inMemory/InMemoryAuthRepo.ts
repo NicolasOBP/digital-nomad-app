@@ -14,4 +14,8 @@ export class InMemoryAuthRepo implements IAuthRepo {
     throw new Error("User not found");
   }
   async signOut(): Promise<void> {}
+
+  async sendResetPasswordEmail(email: string): Promise<void> {
+    console.log("email sent to", { email });
+  }
 }

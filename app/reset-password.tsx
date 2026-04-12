@@ -1,7 +1,9 @@
+import { router } from "expo-router";
 import { useState } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { useAuthSendResetPasswordEmail } from "@/src/domain/auth/useCases/useAuthSendResetPasswordEmail";
 import { Button } from "@/src/ui/components/Button";
 import { Text } from "@/src/ui/components/Text";
 import { TextInput } from "@/src/ui/components/TextInput";
@@ -12,7 +14,13 @@ import { Screen } from "@/src/ui/template/Screen";
 
 export default function ResetPasswordScreen() {
   const [email, setEmail] = useState("");
-  function handleResetPass() {}
+  const { mutate: sendResetEmail } = useAuthSendResetPasswordEmail({
+    onSuccess: router.back,
+  });
+
+  function handleResetPass() {
+    sendResetEmail({ email });
+  }
 
   return (
     <Screen>
