@@ -8,6 +8,7 @@ import { Button } from "@/src/ui/components/Button";
 import { Text } from "@/src/ui/components/Text";
 import { TextInput } from "@/src/ui/components/TextInput";
 import { Logo } from "@/src/ui/containers/Logo";
+import { TextLink } from "@/src/ui/containers/TextLink";
 import { Screen } from "@/src/ui/template/Screen";
 
 export default function SignInScreen() {
@@ -51,14 +52,11 @@ export default function SignInScreen() {
 
         <Button title="Entrar" onPress={handleSignIn} />
 
-        <Link href={"/sign-up"} asChild>
-          <Text alignSelf="center" mt="s16" color="gray2">
-            Ainda não tem uma conta?
-            <Text color="primary" variant="title14">
-              Criar
-            </Text>
-          </Text>
-        </Link>
+        <TextLink
+          ctaText="Criar"
+          href={"/sign-up"}
+          text="Ainda não tem uma conta?"
+        />
       </SafeAreaView>
     </Screen>
   );
