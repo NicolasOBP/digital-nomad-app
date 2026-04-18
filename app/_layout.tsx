@@ -7,7 +7,7 @@ import { ThemeProvider } from "@shopify/restyle";
 import { AuthProvider } from "@/src/domain/auth/AuthContext";
 import { AlertFeedback } from "@/src/infra/feedbackService/adapters/Alert/AlertFeedback";
 import { FeedbackProvider } from "@/src/infra/feedbackService/FeedbackProvider";
-import { InMemoryRepositories } from "@/src/infra/repositories/adapters/inMemory";
+import { SupabaseRepositories } from "@/src/infra/repositories/adapters/supabase";
 import { RepositoryProvider } from "@/src/infra/repositories/RepositoryProvider";
 import { AsyncStorageImpl } from "@/src/infra/storage/adapters/AsyncStorageImpl";
 import { StorageProvider } from "@/src/infra/storage/StorageContex";
@@ -52,7 +52,7 @@ export default function RootLayout() {
     <StorageProvider storage={AsyncStorageImpl}>
       <AuthProvider>
         <FeedbackProvider value={AlertFeedback}>
-          <RepositoryProvider value={InMemoryRepositories}>
+          <RepositoryProvider value={SupabaseRepositories}>
             <ThemeProvider theme={theme}>
               <Stack
                 screenOptions={{

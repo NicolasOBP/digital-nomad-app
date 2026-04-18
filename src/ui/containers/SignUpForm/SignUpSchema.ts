@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const signUpSchema = z
   .object({
-    fullName: z
+    fullname: z
       .string({ message: "campo obrigatório" })
       .min(5, "nome muito curto"),
     email: z.email({ error: "email obrigatório" }),

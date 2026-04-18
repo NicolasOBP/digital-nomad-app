@@ -1,7 +1,7 @@
 import { AuthUser } from "./AuthUser";
 
 export type AuthSignUpParams = {
-  fullName: string;
+  fullname: string;
   email: string;
   password: string;
 };

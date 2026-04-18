@@ -1,3 +1,7 @@
+// eslint-disable-next-line import/named
+import { AuthUser as SupaBaseAuthUser } from "@supabase/supabase-js";
+
+import { AuthUser } from "@/src/domain/auth/AuthUser";
 import { Category } from "@/src/domain/category/Category";
 import { City, CityPreview, TouristAttraction } from "@/src/domain/city/City";
 
@@ -72,4 +76,21 @@ function toCategory(data: CategoryRow[]): Category[] {
   }));
 }
 
-export const supabaseAdapter = { toCity, toCategory, toCityPreview };
+function toAuthUser(supabaseUser: SupaBaseAuthUser): AuthUser {
+  if (!supabaseUser.email) {
+    throw new Error("email not found");
+  }
+
+  return {
+    id: supabaseUser.id,
+    email: supabaseUser.email,
+    fullname: supabaseUser.user_metadata.fullname,
+  };
+}
+
+export const supabaseAdapter = {
+  toCity,
+  toCategory,
+  toCityPreview,
+  toAuthUser,
+};

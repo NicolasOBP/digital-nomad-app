@@ -21,7 +21,7 @@ export function SignUpForm({ onSubmit }: SignUpFormProps) {
     <Box>
       <Controller
         control={control}
-        name="fullName"
+        name="fullname"
         render={({ field, fieldState }) => (
           <TextInput
             label="Nome completo"
