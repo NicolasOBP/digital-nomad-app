@@ -22,7 +22,8 @@ export function useAuthSignIn() {
     onError: (error) => {
       send({
         type: "error",
-        message: `error ${error}`,
+        message: `erro ao fazer login`,
+        description: `error: ${error}`,
       });
     },
   });

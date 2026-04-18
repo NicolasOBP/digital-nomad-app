@@ -5,9 +5,10 @@ import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "@shopify/restyle";
 
 import { AuthProvider } from "@/src/domain/auth/AuthContext";
-import { AlertFeedback } from "@/src/infra/feedbackService/adapters/Alert/AlertFeedback";
+import { Toast } from "@/src/infra/feedbackService/adapters/Toast/Toast";
+import { ToastFeedback } from "@/src/infra/feedbackService/adapters/Toast/ToastFeedback";
 import { FeedbackProvider } from "@/src/infra/feedbackService/FeedbackProvider";
-import { SupabaseRepositories } from "@/src/infra/repositories/adapters/supabase";
+import { InMemoryRepositories } from "@/src/infra/repositories/adapters/inMemory";
 import { RepositoryProvider } from "@/src/infra/repositories/RepositoryProvider";
 import { AsyncStorageImpl } from "@/src/infra/storage/adapters/AsyncStorageImpl";
 import { StorageProvider } from "@/src/infra/storage/StorageContex";
@@ -51,8 +52,8 @@ export default function RootLayout() {
   return (
     <StorageProvider storage={AsyncStorageImpl}>
       <AuthProvider>
-        <FeedbackProvider value={AlertFeedback}>
-          <RepositoryProvider value={SupabaseRepositories}>
+        <FeedbackProvider value={ToastFeedback}>
+          <RepositoryProvider value={InMemoryRepositories}>
             <ThemeProvider theme={theme}>
               <Stack
                 screenOptions={{
@@ -69,6 +70,7 @@ export default function RootLayout() {
                 <Stack.Screen name="sign-in" />
               </Stack>
               <StatusBar style="light" />
+              <Toast />
             </ThemeProvider>
           </RepositoryProvider>
         </FeedbackProvider>

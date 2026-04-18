@@ -1,6 +1,6 @@
-export type FeedbackType = "error" | "success";
+export type FeedbackType = "error" | "success" | "warning" | "info";
 
-type Feedback = {
+export type Feedback = {
   type: FeedbackType;
   message: string;
   description?: string;
