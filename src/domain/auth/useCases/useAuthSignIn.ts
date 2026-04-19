@@ -23,7 +23,7 @@ export function useAuthSignIn() {
       send({
         type: "error",
         message: `erro ao fazer login`,
-        description: `error: ${error}`,
+        description: error.message,
       });
     },
   });
