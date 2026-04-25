@@ -1,5 +1,3 @@
-import { PropsWithChildren } from "react";
-
 import { ThemeProvider } from "@shopify/restyle";
 import { renderRouter } from "expo-router/testing-library";
 
@@ -8,7 +6,7 @@ import TabLayout from "@/app/(protected)/(tabs)/_layout";
 import ExploreScreen from "@/app/(protected)/(tabs)/explore";
 import ProfileScreen from "@/app/(protected)/(tabs)/profile";
 import ProtectedLayout from "@/app/(protected)/_layout";
-import CityDetailsScreen from "@/app/(protected)/city-details/[id]";
+import CityDetails from "@/app/(protected)/city-details/[id]";
 import SignInScreen from "@/app/sign-in";
 import SignUpScreen from "@/app/sign-up";
 
@@ -24,7 +22,7 @@ import { AppStack } from "../ui/navigation/AppStack";
 import theme from "../ui/theme/theme";
 
 export function renderApp() {
-  function Wrapper({ children }: PropsWithChildren) {
+  function Wrapper({ children }: React.PropsWithChildren) {
     return (
       <StorageProvider storage={inMemoryStorage}>
         <AuthProvider>
@@ -49,7 +47,7 @@ export function renderApp() {
       "(protected)/(tabs)/index": () => <HomeScreen />,
       "(protected)/(tabs)/explore": () => <ExploreScreen />,
       "(protected)/(tabs)/profile": () => <ProfileScreen />,
-      "(protected)/city-details/[id]": () => <CityDetailsScreen />,
+      "(protected)/city-details/[id]": () => <CityDetails />,
       "sign-in": () => <SignInScreen />,
       "sign-up": () => <SignUpScreen />,
     },

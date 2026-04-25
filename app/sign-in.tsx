@@ -33,7 +33,6 @@ export default function SignInScreen() {
           value={email}
           onChangeText={setEmail}
           placeholder="Seu email"
-          errorMessage=""
         />
         <TextInput
           label="Senha"
@@ -41,7 +40,6 @@ export default function SignInScreen() {
           secureTextEntry
           onChangeText={setPassword}
           placeholder="Dgite sua senha"
-          errorMessage=""
         />
 
         <Link href={"/reset-password"} asChild>

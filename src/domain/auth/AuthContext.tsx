@@ -1,5 +1,5 @@
 import { router, SplashScreen } from "expo-router";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { useStorage } from "@/src/infra/storage/StorageContex";
 
@@ -12,7 +12,9 @@ type AuthState = {
   removeAuthUser: () => Promise<void>;
 };
 
-export const AuthContext = createContext<AuthState>({
+SplashScreen.preventAutoHideAsync();
+
+export const AuthContext = React.createContext<AuthState>({
   authUser: null,
   isReady: false,
   saveAuthUser: async () => {},
@@ -21,26 +23,30 @@ export const AuthContext = createContext<AuthState>({
 
 const AUTH_KEY = "AUTH_KEY";
 
-SplashScreen.preventAutoHideAsync();
-
 export function AuthProvider({ children }: React.PropsWithChildren) {
   const [authUser, setAuthUser] = useState<AuthUser | null>(null);
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState<boolean>(false);
+
   const { storage } = useStorage();
 
   async function saveAuthUser(user: AuthUser) {
-    storage.setItem(AUTH_KEY, user);
+    await storage.setItem(AUTH_KEY, user);
     setAuthUser(user);
     router.replace("/");
   }
 
   async function removeAuthUser() {
-    storage.removeItem(AUTH_KEY);
+    await storage.removeItem(AUTH_KEY);
     setAuthUser(null);
   }
 
   async function loadAuthUser() {
     try {
+      // await new Promise((resolve) => {
+      //   setTimeout(() => {
+      //     resolve("");
+      //   }, 2000);
+      // });
       const user = await storage.getItem<AuthUser>(AUTH_KEY);
       if (user) {
         setAuthUser(user);
@@ -49,13 +55,18 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
       console.log(error);
     } finally {
       setIsReady(true);
-      SplashScreen.hide();
     }
   }
 
   useEffect(() => {
     loadAuthUser();
   }, []);
+
+  useEffect(() => {
+    if (isReady) {
+      SplashScreen.hide();
+    }
+  }, [isReady]);
 
   return (
     <AuthContext.Provider
@@ -68,10 +79,8 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-
   if (!context) {
-    throw new Error("AuthUser Context should be used within a AuthProvider");
+    throw new Error("Auth Context should be used within an AuthProvider");
   }
-
   return context;
 }

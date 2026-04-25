@@ -25,7 +25,7 @@ function CustomToast({ message, type, description }: Feedback) {
       borderRadius="default"
       backgroundColor={backgroundColor}
     >
-      <Text variant="title16" color={textColor} textAlign="center">
+      <Text variant="title16" color={textColor}>
         {message}
       </Text>
       {description && (
@@ -45,5 +45,12 @@ const toastConfig: ToastConfig = {
 };
 
 export function Toast() {
-  return <RNToast autoHide config={toastConfig} visibilityTime={3000} />;
+  return (
+    <RNToast
+      autoHide
+      topOffset={80}
+      config={toastConfig}
+      visibilityTime={3000}
+    />
+  );
 }
