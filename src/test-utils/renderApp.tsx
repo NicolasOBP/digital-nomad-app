@@ -6,11 +6,12 @@ import TabLayout from "@/app/(protected)/(tabs)/_layout";
 import ExploreScreen from "@/app/(protected)/(tabs)/explore";
 import ProfileScreen from "@/app/(protected)/(tabs)/profile";
 import ProtectedLayout from "@/app/(protected)/_layout";
-import CityDetails from "@/app/(protected)/city-details/[id]";
+import CityDetailsScreen from "@/app/(protected)/city-details/[id]";
 import SignInScreen from "@/app/sign-in";
 import SignUpScreen from "@/app/sign-up";
 
-import { AuthProvider } from "../domain/auth/AuthContext";
+import { AuthContext, AuthProvider } from "../domain/auth/AuthContext";
+import { AuthUser } from "../domain/auth/AuthUser";
 import { Toast } from "../infra/feedbackService/adapters/Toast/Toast";
 import { ToastFeedback } from "../infra/feedbackService/adapters/Toast/ToastFeedback";
 import { FeedbackProvider } from "../infra/feedbackService/FeedbackProvider";
@@ -21,11 +22,36 @@ import { StorageProvider } from "../infra/storage/StorageContex";
 import { AppStack } from "../ui/navigation/AppStack";
 import theme from "../ui/theme/theme";
 
-export function renderApp() {
+function MockedAuthProvider({ children }: React.PropsWithChildren) {
+  const authUser: AuthUser = {
+    email: "esse@gmail.com",
+    id: "1",
+    fullname: "Esse",
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        isReady: true,
+        authUser,
+        removeAuthUser: async () => {},
+        saveAuthUser: async () => {},
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function renderApp(options?: { isAuthenticated?: boolean }) {
+  const FinalAuthProvider = options?.isAuthenticated
+    ? MockedAuthProvider
+    : AuthProvider;
+
   function Wrapper({ children }: React.PropsWithChildren) {
     return (
       <StorageProvider storage={inMemoryStorage}>
-        <AuthProvider>
+        <FinalAuthProvider>
           <FeedbackProvider value={ToastFeedback}>
             <RepositoryProvider value={InMemoryRepositories}>
               <ThemeProvider theme={theme}>
@@ -34,7 +60,7 @@ export function renderApp() {
               </ThemeProvider>
             </RepositoryProvider>
           </FeedbackProvider>
-        </AuthProvider>
+        </FinalAuthProvider>
       </StorageProvider>
     );
   }
@@ -47,7 +73,7 @@ export function renderApp() {
       "(protected)/(tabs)/index": () => <HomeScreen />,
       "(protected)/(tabs)/explore": () => <ExploreScreen />,
       "(protected)/(tabs)/profile": () => <ProfileScreen />,
-      "(protected)/city-details/[id]": () => <CityDetails />,
+      "(protected)/city-details/[id]": () => <CityDetailsScreen />,
       "sign-in": () => <SignInScreen />,
       "sign-up": () => <SignUpScreen />,
     },

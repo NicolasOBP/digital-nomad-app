@@ -36,9 +36,9 @@ describe("integration: Auth Flow", () => {
     fireEvent.press(screen.getByText("Perfil"));
 
     // press the sign-out button
-    fireEvent.press(screen.getByText("Sair"));
+    fireEvent.press(screen.getByText("Logout"));
 
     // verify if user is in the sign-in screen
-    expect(await screen.findByText("Bem-vindo"));
+    expect(await screen.findByText("Bem Vindo"));
   });
 });

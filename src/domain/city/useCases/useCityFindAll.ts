@@ -6,5 +6,8 @@ import { CityFindAllFilter } from "../ICityRepo";
 export function useCityFindAll(filters: CityFindAllFilter) {
   const { city } = useRepository();
 
-  return useAppQuery(() => city.findAll(filters), [filters]);
+  return useAppQuery(
+    () => city.findAll(filters),
+    [filters.name, filters.categoryId],
+  );
 }
