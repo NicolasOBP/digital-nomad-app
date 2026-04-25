@@ -5,7 +5,7 @@ export const signUpSchema = z
     fullname: z
       .string({ message: "campo obrigatório" })
       .min(5, "nome muito curto"),
-    email: z.email({ error: "email obrigatório" }),
+    email: z.email({ error: "email inválido" }),
     password: z
       .string({ message: "campo obrigatório" })
       .min(6, "no mínimo 6 caracteres"),
