@@ -25,4 +25,38 @@ describe("integration: Home", () => {
     expect(screen.getByText("Barcelona")).toBeOnTheScreen();
     expect(screen.getByText("Espanha")).toBeOnTheScreen();
   });
+  it("should display an empty message when city list is empty", async () => {
+    renderApp({
+      isAuthenticated: true,
+      repositories: {
+        city: {
+          findAll: async () => {
+            return [];
+          },
+        },
+      },
+    });
+
+    expect(await screen.findByText(/Carregando cidades.../i)).toBeOnTheScreen();
+    expect(
+      await screen.findByText(/Não há cidades no momento/i),
+    ).toBeOnTheScreen();
+  });
+  it("should display an error message when city list does not load", async () => {
+    renderApp({
+      isAuthenticated: true,
+      repositories: {
+        city: {
+          findAll: async () => {
+            return Promise.reject(new Error("server is down"));
+          },
+        },
+      },
+    });
+
+    expect(
+      await screen.findByText(/Erro ao carregar cidades/i),
+    ).toBeOnTheScreen();
+    expect(await screen.findByText(/server is down/i)).toBeOnTheScreen();
+  });
 });

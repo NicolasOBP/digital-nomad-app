@@ -41,6 +41,13 @@ export class InMemoryCityRepo implements ICityRepo {
       });
     }
 
+    // await new Promise((res) => {
+    //   setTimeout(() => {
+    //     res("");
+    //   }, 2000);
+    // });
+    // throw new Error("server down");
+
     return cityPreviewList;
   }
 }

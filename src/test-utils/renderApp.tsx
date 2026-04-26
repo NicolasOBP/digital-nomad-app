@@ -1,5 +1,7 @@
 import { ThemeProvider } from "@shopify/restyle";
 import { renderRouter } from "expo-router/testing-library";
+import clonedeep from "lodash.clonedeep";
+import merge from "lodash.merge";
 
 import HomeScreen from "@/app/(protected)/(tabs)";
 import TabLayout from "@/app/(protected)/(tabs)/_layout";
@@ -12,6 +14,7 @@ import SignUpScreen from "@/app/sign-up";
 
 import { AuthContext, AuthProvider } from "../domain/auth/AuthContext";
 import { AuthUser } from "../domain/auth/AuthUser";
+import { Repositories } from "../domain/Repositories";
 import { Toast } from "../infra/feedbackService/adapters/Toast/Toast";
 import { ToastFeedback } from "../infra/feedbackService/adapters/Toast/ToastFeedback";
 import { FeedbackProvider } from "../infra/feedbackService/FeedbackProvider";
@@ -21,6 +24,9 @@ import { inMemoryStorage } from "../infra/storage/adapters/InMemoryStorage";
 import { StorageProvider } from "../infra/storage/StorageContex";
 import { AppStack } from "../ui/navigation/AppStack";
 import theme from "../ui/theme/theme";
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
 
 function MockedAuthProvider({ children }: React.PropsWithChildren) {
   const authUser: AuthUser = {
@@ -43,7 +49,15 @@ function MockedAuthProvider({ children }: React.PropsWithChildren) {
   );
 }
 
-export function renderApp(options?: { isAuthenticated?: boolean }) {
+export function renderApp(options?: {
+  isAuthenticated?: boolean;
+  repositories?: DeepPartial<Repositories>;
+}) {
+  const finalRepository: Repositories = merge(
+    clonedeep(InMemoryRepositories),
+    options?.repositories ?? {},
+  );
+
   const FinalAuthProvider = options?.isAuthenticated
     ? MockedAuthProvider
     : AuthProvider;
@@ -53,7 +67,7 @@ export function renderApp(options?: { isAuthenticated?: boolean }) {
       <StorageProvider storage={inMemoryStorage}>
         <FinalAuthProvider>
           <FeedbackProvider value={ToastFeedback}>
-            <RepositoryProvider value={InMemoryRepositories}>
+            <RepositoryProvider value={finalRepository}>
               <ThemeProvider theme={theme}>
                 {children}
                 <Toast />

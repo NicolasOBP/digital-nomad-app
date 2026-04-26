@@ -10,6 +10,7 @@ import { CityPreview } from "@/src/domain/city/City";
 import { useCityFindAll } from "@/src/domain/city/useCases/useCityFindAll";
 import { Box } from "@/src/ui/components/Box";
 import { CityCard } from "@/src/ui/components/CityCard";
+import { Text } from "@/src/ui/components/Text";
 import { CityFilter } from "@/src/ui/containers/CityFilter";
 import { Screen } from "@/src/ui/template/Screen";
 import { useAppTheme } from "@/src/ui/theme/useAppTheme";
@@ -21,7 +22,11 @@ export default function HomeScreen() {
     null,
   );
   const debouncedCityName = useDebounce(cityName);
-  const { data: cities } = useCityFindAll({
+  const {
+    data: cities,
+    error,
+    isLoading,
+  } = useCityFindAll({
     name: debouncedCityName,
     categoryId: selectedCategoryId,
   });
@@ -37,6 +42,24 @@ export default function HomeScreen() {
     return (
       <Box paddingHorizontal="padding">
         <CityCard cityPreview={item} />
+      </Box>
+    );
+  }
+
+  function renderEmptyComponent() {
+    let Content;
+
+    if (isLoading) {
+      Content = <Text>Carregando cidades...</Text>;
+    } else if (error) {
+      Content = <Text>Erro ao carregar cidades. {error.message}</Text>;
+    } else {
+      Content = <Text>Não há cidades no momento</Text>;
+    }
+
+    return (
+      <Box mt="s32" alignSelf="center">
+        {Content}
       </Box>
     );
   }
@@ -64,6 +87,7 @@ export default function HomeScreen() {
             onChangeSelectedCategoryId={setSelectedCategoryId}
           />
         }
+        ListEmptyComponent={renderEmptyComponent()}
       />
     </Screen>
   );
