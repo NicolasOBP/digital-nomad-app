@@ -1,4 +1,5 @@
 import { AuthUser } from "@/src/domain/auth/AuthUser";
+import { dateUtils } from "@/src/utils/dateUtils";
 
 import { Box } from "../../components/Box";
 import { Button } from "../../components/Button";
@@ -22,7 +23,10 @@ export function ProfileHeader({ authUser }: ProfileHeaderProps) {
       <Box gap="s4">
         <LineItem label="Nome" value={authUser.fullname} />
         <LineItem label="Email" value={authUser.email} />
-        <LineItem label="Membro desde" value={authUser.createdAt} />
+        <LineItem
+          label="Membro desde"
+          value={dateUtils.formatMonthAndYear(authUser.createdAt)}
+        />
       </Box>
 
       <Box flexDirection="row" gap="s16" mt="s16">
