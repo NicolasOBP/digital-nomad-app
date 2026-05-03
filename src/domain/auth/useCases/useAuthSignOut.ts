@@ -7,7 +7,7 @@ export function useAuthSignOut() {
   const { removeAuthUser } = useAuth();
   const { auth } = useRepository();
   return useAppMutation({
-    mutateFn: () => auth.signOut(),
+    mutationFn: () => auth.signOut(),
     onSuccess: () => {
       removeAuthUser();
     },

@@ -12,7 +12,7 @@ export function useAuthSignUp(options?: UseAppMutationOptions<void>) {
   const { send } = useFeedbackService();
 
   return useAppMutation<void, AuthSignUpParams>({
-    mutateFn: (params) => auth.signUp(params),
+    mutationFn: (params) => auth.signUp(params),
     onSuccess: () => {
       options?.onSuccess?.();
       send({
