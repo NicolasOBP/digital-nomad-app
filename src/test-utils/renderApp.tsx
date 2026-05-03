@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@shopify/restyle";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderRouter } from "expo-router/testing-library";
 import clonedeep from "lodash.clonedeep";
 import merge from "lodash.merge";
@@ -24,6 +25,8 @@ import { inMemoryStorage } from "../infra/storage/adapters/InMemoryStorage";
 import { StorageProvider } from "../infra/storage/StorageContex";
 import { AppStack } from "../ui/navigation/AppStack";
 import theme from "../ui/theme/theme";
+
+import { queryClientOptions } from "./queryClientOptions";
 type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
@@ -58,24 +61,28 @@ export function renderApp(options?: {
     options?.repositories ?? {},
   );
 
+  const queryClient = new QueryClient(queryClientOptions);
+
   const FinalAuthProvider = options?.isAuthenticated
     ? MockedAuthProvider
     : AuthProvider;
 
   function Wrapper({ children }: React.PropsWithChildren) {
     return (
-      <StorageProvider storage={inMemoryStorage}>
-        <FinalAuthProvider>
-          <FeedbackProvider value={ToastFeedback}>
-            <RepositoryProvider value={finalRepository}>
-              <ThemeProvider theme={theme}>
-                {children}
-                <Toast />
-              </ThemeProvider>
-            </RepositoryProvider>
-          </FeedbackProvider>
-        </FinalAuthProvider>
-      </StorageProvider>
+      <QueryClientProvider client={queryClient}>
+        <StorageProvider storage={inMemoryStorage}>
+          <FinalAuthProvider>
+            <FeedbackProvider value={ToastFeedback}>
+              <RepositoryProvider value={finalRepository}>
+                <ThemeProvider theme={theme}>
+                  {children}
+                  <Toast />
+                </ThemeProvider>
+              </RepositoryProvider>
+            </FeedbackProvider>
+          </FinalAuthProvider>
+        </StorageProvider>
+      </QueryClientProvider>
     );
   }
 

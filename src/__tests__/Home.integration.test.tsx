@@ -22,7 +22,7 @@ describe("integration: Home", () => {
 
     await waitForElementToBeRemoved(() => screen.getByText("Bangkok"));
 
-    expect(screen.getByText("Barcelona")).toBeOnTheScreen();
+    expect(await screen.findByText("Barcelona")).toBeOnTheScreen();
     expect(screen.getByText("Espanha")).toBeOnTheScreen();
   });
   it("should display an empty message when city list is empty", async () => {

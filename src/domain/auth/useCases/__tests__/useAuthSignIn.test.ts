@@ -1,4 +1,6 @@
-import { act, renderHook } from "@testing-library/react-native";
+import { act, cleanup, renderHook } from "@testing-library/react-native";
+
+import { AllTheProviders } from "@/src/test-utils/renderComponent";
 
 import { AuthUser } from "../../AuthUser";
 import { useAuthSignIn } from "../useAuthSignIn";
@@ -32,6 +34,7 @@ beforeEach(() => {
 });
 
 describe("useAuthSignIn()", () => {
+  afterEach(() => cleanup());
   it("calls saveAuthUser and sends success feedback on successful sign in", async () => {
     const user: AuthUser = {
       id: "1",
@@ -40,7 +43,9 @@ describe("useAuthSignIn()", () => {
     };
     mockSignIn.mockResolvedValueOnce(user);
 
-    const { result } = renderHook(() => useAuthSignIn());
+    const { result } = renderHook(() => useAuthSignIn(), {
+      wrapper: AllTheProviders,
+    });
 
     expect(result.current.isPending).toBe(false);
 
@@ -62,7 +67,9 @@ describe("useAuthSignIn()", () => {
   it("sends error feedback on failed sign in", async () => {
     const error = new Error("invalid credentials");
     mockSignIn.mockRejectedValueOnce(error);
-    const { result } = renderHook(() => useAuthSignIn());
+    const { result } = renderHook(() => useAuthSignIn(), {
+      wrapper: AllTheProviders,
+    });
 
     await act(async () => {
       await result.current.mutate({
