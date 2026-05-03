@@ -4,5 +4,8 @@ import { useAppQuery } from "@/src/infra/useCases/useAppQuery";
 export function useCategoryFindAll() {
   const { categories } = useRepository();
 
-  return useAppQuery(() => categories.findAll());
+  return useAppQuery({
+    queryKey: ["category"],
+    fetchData: () => categories.findAll(),
+  });
 }

@@ -4,5 +4,8 @@ import { useAppQuery } from "@/src/infra/useCases/useAppQuery";
 export function useGetRelatedCities(id: string) {
   const { city } = useRepository();
 
-  return useAppQuery(() => city.getRelatedCities(id));
+  return useAppQuery({
+    queryKey: ["city", "related", id],
+    fetchData: () => city.getRelatedCities(id),
+  });
 }
