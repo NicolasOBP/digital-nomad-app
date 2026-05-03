@@ -30,4 +30,8 @@ export class InMemoryAuthRepo implements IAuthRepo {
 
     return;
   }
+
+  async getUser(): Promise<AuthUser> {
+    return authUsers[0];
+  }
 }

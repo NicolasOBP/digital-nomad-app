@@ -2,6 +2,7 @@ import { Pressable } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { useAuthGetUser } from "@/src/domain/auth/useCases/useAuthGetUser";
 import { useAuthSignOut } from "@/src/domain/auth/useCases/useAuthSignOut";
 import { Box } from "@/src/ui/components/Box";
 import { Icon } from "@/src/ui/components/Icon";
@@ -10,6 +11,10 @@ import { Screen } from "@/src/ui/template/Screen";
 
 export default function ProfileScreen() {
   const { mutate: signOut } = useAuthSignOut();
+  const { data: user } = useAuthGetUser();
+
+  console.log({ user });
+
   return (
     <Screen>
       <SafeAreaView>

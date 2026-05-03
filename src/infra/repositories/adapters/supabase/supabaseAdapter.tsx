@@ -85,6 +85,7 @@ function toAuthUser(supabaseUser: SupaBaseAuthUser): AuthUser {
     id: supabaseUser.id,
     email: supabaseUser.email,
     fullname: supabaseUser.user_metadata.fullname,
+    createdAt: supabaseUser.created_at,
   };
 }
 
