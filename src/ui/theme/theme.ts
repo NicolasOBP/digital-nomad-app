@@ -53,7 +53,7 @@ const theme = createTheme({
       color: "text",
       fontFamily: "PoppinsRegular",
       fontSize: 16,
-      lineHeight: 18,
+      lineHeight: 20,
     },
     title28: {
       fontSize: 28,
@@ -68,12 +68,12 @@ const theme = createTheme({
     title16: {
       fontSize: 16,
       fontFamily: "PoppinsSemiBold",
-      lineHeight: 18,
+      lineHeight: 20,
     },
     title14: {
       fontSize: 14,
       fontFamily: "PoppinsSemiBold",
-      lineHeight: 16,
+      lineHeight: 18,
     },
     text18: {
       fontSize: 18,
@@ -81,11 +81,11 @@ const theme = createTheme({
     },
     text16: {
       fontSize: 16,
-      lineHeight: 18,
+      lineHeight: 20,
     },
     text14: {
       fontSize: 14,
-      lineHeight: 16,
+      lineHeight: 18,
     },
     text12: {
       fontSize: 12,
