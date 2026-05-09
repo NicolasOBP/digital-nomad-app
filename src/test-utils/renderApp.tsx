@@ -10,6 +10,8 @@ import ExploreScreen from "@/app/(protected)/(tabs)/explore";
 import ProfileScreen from "@/app/(protected)/(tabs)/profile";
 import ProtectedLayout from "@/app/(protected)/_layout";
 import CityDetailsScreen from "@/app/(protected)/city-details/[id]";
+import UpdatePasswordScreen from "@/app/(protected)/update-password";
+import UpdateProfileScreen from "@/app/(protected)/update-profile";
 import SignInScreen from "@/app/sign-in";
 import SignUpScreen from "@/app/sign-up";
 
@@ -36,6 +38,7 @@ function MockedAuthProvider({ children }: React.PropsWithChildren) {
     email: "esse@gmail.com",
     id: "1",
     fullname: "Esse",
+    createdAt: "2025-06-23T10:32:55.10671Z",
   };
 
   return (
@@ -95,6 +98,8 @@ export function renderApp(options?: {
       "(protected)/(tabs)/explore": () => <ExploreScreen />,
       "(protected)/(tabs)/profile": () => <ProfileScreen />,
       "(protected)/city-details/[id]": () => <CityDetailsScreen />,
+      "(protected)/update-profile": () => <UpdateProfileScreen />,
+      "(protected)/update-password": () => <UpdatePasswordScreen />,
       "sign-in": () => <SignInScreen />,
       "sign-up": () => <SignUpScreen />,
     },
