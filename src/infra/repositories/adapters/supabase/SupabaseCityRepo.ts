@@ -7,6 +7,7 @@ import {
 
 import { supabase } from "./supabase";
 import { supabaseAdapter } from "./supabaseAdapter";
+import { supabaseUtils } from "./supabaseUtils";
 
 export type CityFilter = {
   categoryId?: Category["id"] | null;
@@ -39,7 +40,7 @@ async function findAll(filters: CityFilter): Promise<CityPreview[]> {
       throw new Error("data is not available");
     }
 
-    return supabaseAdapter.toCityPreview(cities);
+    return cities.map(supabaseAdapter.toCityPreview);
   } catch (error) {
     throw error;
   }
@@ -68,27 +69,42 @@ async function getRelatedCities(
     .eq("source_city_id", cityId)
     .throwOnError();
 
-  return supabaseAdapter.toCityPreview(data);
+  return data.map(supabaseAdapter.toCityPreview);
 }
 
 async function toggleFavorite(params: CityToggleFavoriteParams): Promise<void> {
-  const { error, data } = await supabase.auth.getSession();
-
-  if (error || !data.session) {
-    throw new Error("invalid session");
-  }
+  const user = await supabaseUtils.getUserFromSession();
 
   if (params.isFavorite) {
     await supabase
       .from("favorite_cities")
       .delete()
-      .eq("user_id", data.session.user.id)
+      .eq("user_id", user.id)
       .eq("city_id", params.cityId);
   } else {
     await supabase
       .from("favorite_cities")
-      .insert({ city_id: params.cityId, user_id: data.session.user.id });
+      .insert({ city_id: params.cityId, user_id: user.id });
   }
+}
+
+async function findAllFavorites(): Promise<CityPreview[]> {
+  const user = await supabaseUtils.getUserFromSession();
+
+  const { data } = await supabase
+    .from("favorite_cities")
+    .select(
+      `cities (
+      id,
+      name,
+      country,
+      cover_image
+      )`,
+    )
+    .eq("user_id", user.id)
+    .throwOnError();
+
+  return data.map((item) => supabaseAdapter.toCityPreview(item.cities));
 }
 
 export const SupabaseCityRepo: ICityRepo = {
@@ -96,4 +112,5 @@ export const SupabaseCityRepo: ICityRepo = {
   findById,
   getRelatedCities,
   toggleFavorite,
+  findAllFavorites,
 };

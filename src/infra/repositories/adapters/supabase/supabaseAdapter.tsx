@@ -44,16 +44,17 @@ function toCity(data: CityWithFullInfo): City {
   };
 }
 
-function toCityPreview(data: CityPreviewRow[]): CityPreview[] {
-  return data.map(
-    (row) =>
-      ({
-        country: row.country,
-        coverImage: `${STORAGE_URL}/${row.cover_image}`,
-        id: row.id,
-        name: row.name,
-      }) as CityPreview,
-  );
+function toCityPreview(row: CityPreviewRow): CityPreview {
+  return {
+    id: row.id as string,
+    country: row.country as string,
+    name: row.name as string,
+    coverImage: `${STORAGE_URL}/${row.cover_image}`,
+    // isFavorite:
+    //   isFavorite ??
+    //   (row.favorite_cities && row.favorite_cities?.length > 0) ??
+    //   false,
+  };
 }
 
 function toTouristAttractions(
