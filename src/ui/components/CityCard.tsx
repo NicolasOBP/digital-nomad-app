@@ -2,11 +2,12 @@ import { Link } from "expo-router";
 import { ImageBackground, ImageBackgroundProps } from "react-native";
 
 import { CityPreview } from "@/src/domain/city/City";
+import { useCityToggleFavorite } from "@/src/domain/city/useCases/useCityToggleFavorite";
 
 import { useAppTheme } from "../theme/useAppTheme";
 
 import { BlackOpacity } from "./BlackOpacity";
-import { Box } from "./Box";
+import { Box, TouchableOpacityBox } from "./Box";
 import { Icon } from "./Icon";
 import { Text } from "./Text";
 
@@ -17,6 +18,8 @@ type CityCardProps = {
 
 export function CityCard({ cityPreview, style }: CityCardProps) {
   const { borderRadii } = useAppTheme();
+  const { mutate: toggleFavorite } = useCityToggleFavorite();
+
   return (
     <Link push href={`/city-details/${cityPreview.id}`}>
       <ImageBackground
@@ -31,15 +34,14 @@ export function CityCard({ cityPreview, style }: CityCardProps) {
         <BlackOpacity />
 
         <Box flex={1} padding="s24" justifyContent="space-between">
-          <Box
+          <TouchableOpacityBox
             alignSelf="flex-end"
-            padding="s8"
-            borderRadius="rounded"
-            borderWidth={2}
-            borderColor="gray2"
+            onPress={() => {
+              toggleFavorite({ cityId: cityPreview.id, isFavorite: true });
+            }}
           >
             <Icon name="Favorite-outline" color="text" />
-          </Box>
+          </TouchableOpacityBox>
 
           <Box>
             <Text variant="title28">{cityPreview.name}</Text>

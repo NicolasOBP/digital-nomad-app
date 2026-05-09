@@ -1,6 +1,9 @@
 import { Category } from "@/src/domain/category/Category";
 import { City, CityPreview } from "@/src/domain/city/City";
-import { ICityRepo } from "@/src/domain/city/ICityRepo";
+import {
+  CityToggleFavoriteParams,
+  ICityRepo,
+} from "@/src/domain/city/ICityRepo";
 
 import { supabase } from "./supabase";
 import { supabaseAdapter } from "./supabaseAdapter";
@@ -68,8 +71,29 @@ async function getRelatedCities(
   return supabaseAdapter.toCityPreview(data);
 }
 
+async function toggleFavorite(params: CityToggleFavoriteParams): Promise<void> {
+  const { error, data } = await supabase.auth.getSession();
+
+  if (error || !data.session) {
+    throw new Error("invalid session");
+  }
+
+  if (params.isFavorite) {
+    await supabase
+      .from("favorite_cities")
+      .delete()
+      .eq("user_id", data.session.user.id)
+      .eq("city_id", params.cityId);
+  } else {
+    await supabase
+      .from("favorite_cities")
+      .insert({ city_id: params.cityId, user_id: data.session.user.id });
+  }
+}
+
 export const SupabaseCityRepo: ICityRepo = {
   findAll,
   findById,
   getRelatedCities,
+  toggleFavorite,
 };
