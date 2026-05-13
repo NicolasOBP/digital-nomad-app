@@ -1,14 +1,12 @@
 import { Pressable } from "react-native";
 
-import { SafeAreaView } from "react-native-safe-area-context";
-
 import { useAuthGetUser } from "@/src/domain/auth/useCases/useAuthGetUser";
 import { useAuthSignOut } from "@/src/domain/auth/useCases/useAuthSignOut";
 import { useCityFindAllFavorites } from "@/src/domain/city/useCases/useCityFindAllFavorites";
 import { Box } from "@/src/ui/components/Box";
-import { FavoriteCityCard } from "@/src/ui/components/FavoriteCityCard";
 import { Icon } from "@/src/ui/components/Icon";
 import { Text } from "@/src/ui/components/Text";
+import { FavoriteCityList } from "@/src/ui/containers/Profile/FavoriteCityList";
 import { ProfileHeader } from "@/src/ui/containers/Profile/ProfileHeader";
 import { Screen } from "@/src/ui/template/Screen";
 
@@ -19,26 +17,22 @@ export default function ProfileScreen() {
 
   return (
     <Screen>
-      <SafeAreaView>
-        {authUser && <ProfileHeader authUser={authUser} />}
-
-        <Box mt="s16" rowGap="s16">
-          {favoriteList?.map((cityPreview) => (
-            <FavoriteCityCard cityPreview={cityPreview} key={cityPreview.id} />
-          ))}
-        </Box>
-        <Pressable onPress={signOut}>
-          <Box
-            mt="s24"
-            flexDirection="row"
-            alignItems="center"
-            alignSelf="center"
-          >
-            <Icon name="Logout" color="fbErrorSurface" />
-            <Text color="fbErrorSurface">Logout</Text>
-          </Box>
-        </Pressable>
-      </SafeAreaView>
+      <FavoriteCityList
+        ListHeaderComponent={authUser && <ProfileHeader authUser={authUser} />}
+        ListFooterComponent={
+          <Pressable onPress={signOut}>
+            <Box
+              mt="s24"
+              flexDirection="row"
+              alignItems="center"
+              alignSelf="center"
+            >
+              <Icon name="Logout" color="fbErrorSurface" />
+              <Text color="fbErrorSurface">Logout</Text>
+            </Box>
+          </Pressable>
+        }
+      />
     </Screen>
   );
 }
