@@ -48,6 +48,7 @@ export default function CityDetailsScreen() {
           id={city.id}
           categories={city.categories}
           coverImage={city.coverImage}
+          isFavorite={city.isFavorite}
         />
 
         <CityDetailsInfo

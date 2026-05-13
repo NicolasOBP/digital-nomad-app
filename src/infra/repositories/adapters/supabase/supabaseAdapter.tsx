@@ -10,7 +10,11 @@ import { Database } from "./types";
 export const STORAGE_URL = process.env.EXPO_PUBLIC_SUPABASE_STORAGE_URL;
 
 type CityWithFullInfo =
-  Database["public"]["Views"]["cities_with_full_info"]["Row"];
+  Database["public"]["Views"]["cities_with_full_info"]["Row"] & {
+    favorite_cities: {
+      user_id: string;
+    }[];
+  };
 
 type CategoryRow = Database["public"]["Tables"]["categories"]["Row"];
 
@@ -22,6 +26,9 @@ type CityPreviewRow = {
   cover_image: string | null;
   id: string | null;
   name: string | null;
+  favorite_cities?: {
+    user_id: string;
+  }[];
 };
 
 function toCity(data: CityWithFullInfo): City {
@@ -41,19 +48,20 @@ function toCity(data: CityWithFullInfo): City {
     categories: toCategory(categories),
     name: data.name as string,
     touristAttractions: toTouristAttractions(tourist_attractions),
+    isFavorite: data.favorite_cities?.length > 0,
   };
 }
 
-function toCityPreview(row: CityPreviewRow): CityPreview {
+function toCityPreview(row: CityPreviewRow, isFavorite?: boolean): CityPreview {
   return {
     id: row.id as string,
     country: row.country as string,
     name: row.name as string,
     coverImage: `${STORAGE_URL}/${row.cover_image}`,
-    // isFavorite:
-    //   isFavorite ??
-    //   (row.favorite_cities && row.favorite_cities?.length > 0) ??
-    //   false,
+    isFavorite:
+      isFavorite ??
+      (row.favorite_cities && row.favorite_cities.length > 0) ??
+      false,
   };
 }
 

@@ -11,12 +11,16 @@ import { Icon } from "../components/Icon";
 import { IconButton } from "../components/IconButton";
 import { PILL_HEIGHT } from "../components/Pill";
 
-type CityDetailsHeaderProps = Pick<City, "id" | "categories" | "coverImage">;
+type CityDetailsHeaderProps = Pick<
+  City,
+  "id" | "categories" | "coverImage" | "isFavorite"
+>;
 
 export function CityDetailsHeader({
   id,
   categories,
   coverImage,
+  isFavorite,
 }: CityDetailsHeaderProps) {
   const { top } = useSafeAreaInsets();
 
@@ -38,7 +42,11 @@ export function CityDetailsHeader({
           padding="padding"
         >
           <IconButton iconName="Chevron-left" onPress={router.back} />
-          <Icon name="Favorite-outline" size={30} color="pureWhite" />
+          <Icon
+            name={isFavorite ? "Favorite-fill" : "Favorite-outline"}
+            color={isFavorite ? "primary" : "text"}
+            size={30}
+          />
         </Box>
       </ImageBackground>
       <ScrollView
