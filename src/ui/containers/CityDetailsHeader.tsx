@@ -7,7 +7,7 @@ import { City } from "../../domain/city/City";
 import { BlackOpacity } from "../components/BlackOpacity";
 import { Box } from "../components/Box";
 import { CategoryPill } from "../components/CategoryPill";
-import { Icon } from "../components/Icon";
+import { CityFavoriteButton } from "../components/CityFavoriteButton";
 import { IconButton } from "../components/IconButton";
 import { PILL_HEIGHT } from "../components/Pill";
 
@@ -42,11 +42,8 @@ export function CityDetailsHeader({
           padding="padding"
         >
           <IconButton iconName="Chevron-left" onPress={router.back} />
-          <Icon
-            name={isFavorite ? "Favorite-fill" : "Favorite-outline"}
-            color={isFavorite ? "primary" : "text"}
-            size={30}
-          />
+
+          <CityFavoriteButton size={30} city={{ id, isFavorite }} />
         </Box>
       </ImageBackground>
       <ScrollView
