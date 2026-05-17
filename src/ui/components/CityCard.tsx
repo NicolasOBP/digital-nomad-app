@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { ImageBackground, ImageBackgroundProps } from "react-native";
+import { ImageBackground, useWindowDimensions } from "react-native";
 
 import { CityPreview } from "@/src/domain/city/City";
 
@@ -12,11 +12,24 @@ import { Text } from "./Text";
 
 type CityCardProps = {
   cityPreview: CityPreview;
-  style?: ImageBackgroundProps["style"];
+  type?: "small" | "large";
+  disableFavorite?: boolean;
 };
 
-export function CityCard({ cityPreview, style }: CityCardProps) {
+export function CityCard({
+  cityPreview,
+  type = "large",
+  disableFavorite = false,
+}: CityCardProps) {
   const { borderRadii } = useAppTheme();
+
+  const { width } = useWindowDimensions();
+
+  const cardWidth = width * 0.7;
+  const cardHeight = cardWidth * 0.9;
+
+  const style =
+    type === "small" ? { width: cardWidth, height: cardHeight } : undefined;
 
   return (
     <Link push href={`/city-details/${cityPreview.id}`}>
@@ -33,7 +46,7 @@ export function CityCard({ cityPreview, style }: CityCardProps) {
 
         <Box flex={1} padding="s24" justifyContent="space-between">
           <Box alignSelf="flex-end">
-            <CityFavoriteButton city={cityPreview} />
+            {!disableFavorite && <CityFavoriteButton city={cityPreview} />}
           </Box>
 
           <Box>

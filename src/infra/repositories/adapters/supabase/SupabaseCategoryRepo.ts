@@ -11,7 +11,7 @@ async function findAll(): Promise<Category[]> {
     throw new Error("Failed to fetch categories");
   }
 
-  return supabaseAdapter.toCategory(data);
+  return data.map(supabaseAdapter.toCategory);
 }
 
 export const SupabaseCategoryRepo: ICategoryRepo = {
