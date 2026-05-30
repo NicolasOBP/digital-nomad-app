@@ -8,5 +8,8 @@ jobs:
   check-code:
     name: Check Code jobs
     steps:
-      - name: Hello World
-        run: echo "hello word"
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+
+      - name: Run TypeScript Compiler
+        run: npx tsc -noEmit
