@@ -1,0 +1,16 @@
+appId: com.nicolasobp.digitalnomadapp
+---
+- tapOn:
+    id: "email-input"
+- inputText: "nicolasobp15@gmail.com"
+
+- tapOn:
+    id: "password-input"
+- inputText: "12345678"
+
+- hideKeyboard
+
+- tapOn:
+    text: "Entrar"
+
+- assertVisible: ".*signed in.*"

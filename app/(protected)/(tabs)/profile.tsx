@@ -20,7 +20,7 @@ export default function ProfileScreen() {
       <FavoriteCityList
         ListHeaderComponent={authUser && <ProfileHeader authUser={authUser} />}
         ListFooterComponent={
-          <Pressable onPress={signOut}>
+          <Pressable testID="sign-out-button" onPress={signOut}>
             <Box
               mt="s24"
               flexDirection="row"
