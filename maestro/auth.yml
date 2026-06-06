@@ -1,19 +1,9 @@
 appId: com.nicolasobp.digitalnomadapp
 ---
-- tapOn:
-    id: "email-input"
-- inputText: "nicolasobp15@gmail.com"
+- launchApp:
+    clearState: true
 
-- tapOn:
-    id: "password-input"
-- inputText: "12345678"
-
-- hideKeyboard
-
-- tapOn:
-    text: "Entrar"
-
-- assertVisible: ".*signed in.*"
+- runFlow: sign-in.yml
 
 # Sign out
 - tapOn:
