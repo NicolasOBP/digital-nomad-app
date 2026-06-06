@@ -13,6 +13,11 @@ appId: com.nicolasobp.digitalnomadapp
     while:
       notVisible: ".*Bem Vindo.*"
     commands:
+      - scrollUntilVisible:
+          element:
+            id: "sign-out-button" # or any other selector
+          direction: DOWN # DOWN|UP|LEFT|RIGHT (optional, default: DOWN)
+
       - tapOn:
           id: "sign-out-button"
 
