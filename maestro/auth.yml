@@ -1,7 +1,5 @@
 appId: com.nicolasobp.digitalnomadapp
 ---
-- launchApp
-
 - tapOn:
     id: "email-input"
 - inputText: "nicolasobp15@gmail.com"
@@ -16,3 +14,16 @@ appId: com.nicolasobp.digitalnomadapp
     text: "Entrar"
 
 - assertVisible: ".*signed in.*"
+
+# Sign out
+- tapOn:
+    text: .*Perfil.*
+
+- repeat:
+    while:
+      notVisible: ".*Bem Vindo.*"
+    commands:
+      - tapOn:
+          id: "sign-out-button"
+
+- assertVisible: ".*Bem Vindo.*"
