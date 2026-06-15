@@ -46,7 +46,7 @@ export default function SignInScreen() {
 
         <Link href={"/reset-password"} asChild>
           <Text mb="s16" alignSelf="flex-end" variant="text14" color="primary">
-            Esqueceu sua senha
+            Esqueceu sua senha (clique aqui)
           </Text>
         </Link>
 
